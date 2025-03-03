@@ -27,8 +27,6 @@ jobs:
           project_id: central-pod-452614-k0
 
       - name: Deploy files to GCS
-        run: |
-          gsutil -m rsync -r -x ".*" ./ gs://bucky_9
-
+        run: gsutil -m cp -r * gs://bucky_9
       - name: Set public access
         run: gsutil iam ch allUsers:objectViewer gs://bucky_9
