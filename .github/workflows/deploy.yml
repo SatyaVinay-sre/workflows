@@ -10,8 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout workflow repository
         uses: actions/checkout@v4
+        with:  
+          repository: SatyaVinay-sre/workflows  # Replace with your actual GitHub repo name
+          ref: main  # The branch to check out  
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
