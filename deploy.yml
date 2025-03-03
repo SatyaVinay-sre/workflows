@@ -1,0 +1,33 @@
+name: Deploy Static Site to GCP
+
+on:
+  push:
+    branches:
+      - main  # Runs this workflow whenever the 'main' branch is updated
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.KEY }}
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: central-pod-452614-k0
+
+      - name: Deploy files to GCS
+        run: |
+          gsutil -m rsync -r -x ".*" ./ gs://bucky_9
+
+      - name: Set public access
+        run: |
+          echo 'Setting public access...'
+          gsutil iam set public-read gs://bucky_9
