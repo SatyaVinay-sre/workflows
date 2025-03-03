@@ -28,6 +28,4 @@ jobs:
           gsutil -m rsync -r -x ".*" ./ gs://bucky_9
 
       - name: Set public access
-        run: |
-          echo 'Setting public access...'
-          gsutil iam set public-read gs://bucky_9
+        run: gsutil iam ch allUsers:objectViewer gs://bucky_9
